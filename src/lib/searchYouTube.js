@@ -27,7 +27,3 @@ const searchYouTube = (options, callback) => {
 };
 
 window.searchYouTube = searchYouTube;
-
-//https://www.googleapis.com/youtube/v3/search?key=AIzaSyDIjEEhf-UDXxtl18KU8h-HCggxjPWDj0Y&query=react&max=5
-
-//https://www.googleapis.com/youtube/v3/search?key=${key}&q=${query}&maxResults=${max}
