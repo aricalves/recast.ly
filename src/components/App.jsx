@@ -4,14 +4,14 @@ class App extends React.Component {
     this.state = {
       video: window.exampleVideoData[0],
       videos: window.exampleVideoData,
-      select: false
+      select: window.exampleVideoData[0]
     };
   }
   
-  onVideoClick() {
-    console.log('Video clicked');
+  onVideoClick(video) {
+    console.log('Video clicked', video);
     this.setState({
-      select: !this.state.select
+      select: video
     });
   }
   
@@ -25,10 +25,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.video} />
+            <VideoPlayer video={this.state.select} />
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.videos} onClick={this.onVideoClick.bind(this)}/>
+            <VideoList videos={this.state.videos} onVideoClick={this.onVideoClick.bind(this)}/>
           </div>
         </div>
       </div>
