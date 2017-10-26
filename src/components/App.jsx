@@ -9,7 +9,6 @@ class App extends React.Component {
   }
   
   onVideoClick(video) {
-    console.log('Video clicked', video);
     this.setState({
       select: video
     });
