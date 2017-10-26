@@ -19,11 +19,13 @@ const searchYouTube = (options, callback) => {
       callback(data.items);
     },
     error: function (data) {
-      console.error('something else', JSON.stringify(data.items));
+      console.error('something went wrong', JSON.stringify(data.items));
     }
   });
   
   
 };
 
-window.searchYouTube = searchYouTube;
+window.searchYouTube = _.debounce(searchYouTube, 500);
+
+

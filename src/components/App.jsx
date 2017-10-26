@@ -1,10 +1,12 @@
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      video: window.exampleVideoData[0],
-      videos: window.exampleVideoData,
-      select: window.exampleVideoData[0]
+      videos: initDataArr,
+      select: initData,
+      inputValue: ''
     };
   }
   
@@ -14,12 +16,32 @@ class App extends React.Component {
     });
   }
   
+  search() {
+    this.props.searchYouTube({
+      query: this.state.inputValue,
+      max: 5,
+      key: YOUTUBE_API_KEY
+    }, results =>
+      this.setState({
+        videos: results,
+        select: results[0]
+      })
+    );
+  }
+  
+  updateInputValue(e) {
+    this.setState({
+      inputValue: e.target.value
+    });
+    this.search();
+  }
+  
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search updateInputValue={this.updateInputValue.bind(this)}/>
           </div>
         </nav>
         <div className="row">
@@ -33,6 +55,21 @@ class App extends React.Component {
       </div>
     );
   }
+  
+  componentDidMount(props) {
+    this.props.searchYouTube({
+      query: 'corgi',
+      max: 5,
+      key: YOUTUBE_API_KEY
+    }, data =>
+      this.setState({
+        videos: data,
+        select: data[0]
+      })
+    );
+    this.props.searchYouTube.flush();
+  }
+  
 }
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
