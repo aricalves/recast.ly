@@ -76,5 +76,31 @@ class App extends React.Component {
 // `var` declarations will only exist globally where explicitly defined
 window.App = App;
 
+const initData = {
+  kind: 'youtube#searchResult',
+  etag: '',
+  id: {
+    kind: 'youtube#video',
+    videoId: ''
+  },
+  snippet: {
+    publishedAt: '',
+    channelId: '',
+    title: '',
+    description: '',
+    thumbnails: {
+      default: {
+        url: '',
+        width: 120,
+        height: 90
+      }
+    },
+    channelTitle: '',
+    liveBroadcastContent: ''
+  }
+};
+
+const initDataArr = Array(5).fill(initData);
+
 
 

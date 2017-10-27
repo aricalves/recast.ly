@@ -9,13 +9,14 @@ describe ('Search', function() {
   var app, searchYouTubeStub;
   
   describe('when rendering live data from YouTube', function() {
+    let debounced;
     beforeEach(function() {
       searchYouTubeStub = sinon.stub();
       searchYouTubeStub.onCall(0).yields(window.fakeVideoData);
       searchYouTubeStub.onCall(1).yields(window.moreFakeVideoData);
-
+      debounced = _.debounce(searchYouTubeStub, 0, true);
       app = renderIntoDocument(
-        <App searchYouTube={searchYouTubeStub} />
+        <App searchYouTube={debounced} />
       );
     });
 
@@ -34,7 +35,7 @@ describe ('Search', function() {
 
       var searchInputElement = findRenderedDOMComponentWithClass(app, 'form-control');
       Simulate.change(searchInputElement, {target: {value: 'React tutorial'}});
-
+      debounced.flush();
       var newVideoEntryTitleElements = scryRenderedDOMComponentsWithClass(app, 'video-list-entry-title');
       newVideoEntryTitleElements.forEach((videoEntryTitle, i) => {
         expect(videoEntryTitle.innerHTML).to.equal(moreFakeVideoData[i].snippet.title);
